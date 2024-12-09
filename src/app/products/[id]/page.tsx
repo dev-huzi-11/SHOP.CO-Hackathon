@@ -19,22 +19,27 @@ import { Product } from "@/components/ProductCard";
 
 type ProductPageProps = {
   params: Promise<{ id: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default function ProductPage({
-  params,
-  searchParams: _searchParams
-}: ProductPageProps) {
+export default function ProductPage({ params }: ProductPageProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
-
-  const resolvedParams = React.use(params);
+  const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(
+    null
+  );
 
   useEffect(() => {
-    const getProduct = () => {
+    const fetchParams = async () => {
+      const resolved = await params;
+      setResolvedParams(resolved);
+    };
+    fetchParams();
+  }, [params]);
+
+  useEffect(() => {
+    if (resolvedParams) {
       const { id } = resolvedParams;
       const foundProduct = Products.find((p) => p.id === Number(id));
       if (!foundProduct) {
@@ -42,8 +47,7 @@ export default function ProductPage({
       } else {
         setProduct(foundProduct);
       }
-    };
-    getProduct();
+    }
   }, [resolvedParams]);
 
   const renderStars = (rating: number) => {
@@ -88,7 +92,6 @@ export default function ProductPage({
   if (!product) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="container w-full px-4 py-8 min-h-screen">
       <div className="max-w-7xl mx-auto">

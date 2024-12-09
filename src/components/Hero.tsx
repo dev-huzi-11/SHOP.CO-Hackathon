@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-// import { integralCF } from '@/app/ui/fonts'
-// import { integralCF } from '@/styles/fonts'
 import { cn } from "@/lib/utils";
 
 const Hero = () => {
@@ -12,7 +10,6 @@ const Hero = () => {
           <h1
             className={cn(
               "text-[38px] md:text-[56px] lg:text-[58px] font-bold leading-[1.1]"
-              // integralCF.className
             )}
           >
             FIND CLOTHES THAT MATCHES YOUR STYLE
