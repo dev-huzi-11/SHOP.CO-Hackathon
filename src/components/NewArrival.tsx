@@ -13,7 +13,7 @@ const NewArrival = () => {
       <div className="max-w-[1400px] mx-auto">
         <h1 className="text-5xl font-bold text-center">New Arrivals</h1>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
-          {Data.filter((e) => e.category === "new-arrival").map((newProduct) => (
+          {Data.filter((e) => e.category === "new-arrival").map((newProduct: Product) => (
             <Link key={newProduct.id} href={`/products/${newProduct.id}`}>
               <ProductCard product={newProduct}/>
             </Link>

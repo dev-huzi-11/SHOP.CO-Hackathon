@@ -19,7 +19,7 @@ const reviews: Review[] = [
     author: "Samantha D.",
     rating: 4.5,
     content:
-      "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.",
+      "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It&apos;s become my favorite go-to shirt.",
     date: "August 14, 2023",
     isVerified: true,
   },
@@ -28,7 +28,7 @@ const reviews: Review[] = [
     author: "Alex M.",
     rating: 4,
     content:
-      "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt definitely gets a thumbs up from me.",
+      "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is top-notch. Being a UI/UX designer myself, I&apos;m quite picky about aesthetics, and this t-shirt definitely gets a thumbs up from me.",
     date: "August 15, 2023",
     isVerified: true,
   },
@@ -37,7 +37,7 @@ const reviews: Review[] = [
     author: "Ethan R.",
     rating: 3.5,
     content:
-      "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet stylish pattern caught my eye, and the fit is perfect. I can see the designer's touch in every aspect of this shirt.",
+      "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet stylish pattern caught my eye, and the fit is perfect. I can see the designer&apos;s touch in every aspect of this shirt.",
     date: "August 16, 2023",
     isVerified: true,
   },
@@ -46,7 +46,7 @@ const reviews: Review[] = [
     author: "Olivia P.",
     rating: 4,
     content:
-      "As a UI/UX enthusiast, I value simplicity and functionality. This t-shirt not only represents those principles but also feels great to wear. It's evident that the designer poured their creativity into making this t-shirt stand out!",
+      "As a UI/UX enthusiast, I value simplicity and functionality. This t-shirt not only represents those principles but also feels great to wear. It&apos;s evident that the designer poured their creativity into making this t-shirt stand out!",
     date: "August 17, 2023",
     isVerified: true,
   },
@@ -55,7 +55,7 @@ const reviews: Review[] = [
     author: "Jackson H.",
     rating: 5,
     content:
-      "This is by far the best t-shirt I've purchased! The fit is perfect, and the quality is exceptional. I wear it every week, and it still looks brand new. Totally worth the price.",
+      "This is by far the best t-shirt I&apos;ve purchased! The fit is perfect, and the quality is exceptional. I wear it every week, and it still looks brand new. Totally worth the price.",
     date: "August 18, 2023",
     isVerified: false,
   },
@@ -73,7 +73,7 @@ const reviews: Review[] = [
     author: "Liam J.",
     rating: 4.8,
     content:
-      "I absolutely love the design! The fabric is soft, and it fits perfectly. It's my new favorite t-shirt. I've gotten so many compliments, and I'll definitely be buying more from this brand.",
+      "I absolutely love the design! The fabric is soft, and it fits perfectly. It&apos;s my new favorite t-shirt. I&apos;ve gotten so many compliments, and I&apos;ll definitely be buying more from this brand.",
     date: "August 20, 2023",
     isVerified: true,
   },
@@ -82,7 +82,7 @@ const reviews: Review[] = [
     author: "Sophia T.",
     rating: 2,
     content:
-      "I'm not a fan of this t-shirt. The material feels cheap, and the print started fading after the first wash. Not what I expected for the price.",
+      "I&apos;m not a fan of this t-shirt. The material feels cheap, and the print started fading after the first wash. Not what I expected for the price.",
     date: "August 21, 2023",
     isVerified: false,
   },
@@ -105,18 +105,14 @@ const renderStars = (rating: number) => {
 };
 
 const ProductReviews = () => {
-  function Component() {
-    const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-    useEffect(() => {
-      setIsClient(true);
-    }, []);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-    if (!isClient) {
-      return null; // You can return null or some placeholder content for server-side rendering
-    }
-
-    return <div>{/* Your client-side dynamic content */}</div>;
+  if (!isClient) {
+    return null;
   }
 
   return (
