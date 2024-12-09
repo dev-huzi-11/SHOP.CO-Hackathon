@@ -22,7 +22,10 @@ type ProductPageProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default function ProductPage({ params, searchParams }: ProductPageProps) {
+export default function ProductPage({
+  params,
+  searchParams: _searchParams
+}: ProductPageProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -112,7 +115,10 @@ export default function ProductPage({ params, searchParams }: ProductPageProps) 
             <div className="flex flex-col-reverse md:flex-row items-center gap-4">
               <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible">
                 {Array.from({ length: 3 }, (_, i) => (
-                  <div key={i} className="min-w-[100px] md:w-24 bg-[#F0EEED] p-2">
+                  <div
+                    key={i}
+                    className="min-w-[100px] md:w-24 bg-[#F0EEED] p-2"
+                  >
                     <Image
                       width={100}
                       height={100}
@@ -136,7 +142,9 @@ export default function ProductPage({ params, searchParams }: ProductPageProps) 
             </div>
 
             <div className="space-y-6 px-6">
-              <h1 className="text-3xl md:text-5xl font-bold">{product.title}</h1>
+              <h1 className="text-3xl md:text-5xl font-bold">
+                {product.title}
+              </h1>
               <div className="flex items-center gap-1">
                 {renderStars(product.rating)}
                 <span className="ml-2 text-gray-500 text-sm">
