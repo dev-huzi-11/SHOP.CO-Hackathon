@@ -28,10 +28,11 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
 
-  // Fetch the product data
+  const resolvedParams = React.use(params);
+
   useEffect(() => {
-    const getProduct = async () => {
-      const { id } = await params;
+    const getProduct = () => {
+      const { id } = resolvedParams;
       const foundProduct = Products.find((p) => p.id === Number(id));
       if (!foundProduct) {
         notFound();
@@ -40,7 +41,7 @@ export default function ProductPage({ params }: ProductPageProps) {
       }
     };
     getProduct();
-  }, [params]);
+  }, [resolvedParams]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -60,7 +61,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const handleSizeSelect = (size: string) => setSelectedSize(size);
 
-  const colorOption = [
+  const colorOptions = [
     { color: "blue", className: "bg-blue-600" },
     { color: "black", className: "bg-black" },
     { color: "white", className: "bg-white border border-gray-300" },
@@ -82,12 +83,11 @@ export default function ProductPage({ params }: ProductPageProps) {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
-
   return (
     <div className="container w-full px-4 py-8 min-h-screen">
-      <div className="max-w-7xl mx-auto ">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <Breadcrumb>
             <BreadcrumbList>
@@ -162,19 +162,19 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
 
               <div className="flex gap-4 flex-wrap">
-                {colorOption.map((colorOption, i) => (
+                {colorOptions.map((option, i) => (
                   <div
                     key={i}
-                    onClick={() => handleSelectedColor(colorOption.color)}
+                    onClick={() => handleSelectedColor(option.color)}
                     className={`relative w-10 h-10 rounded-full cursor-pointer ${
-                      colorOption.className
+                      option.className
                     } ${
-                      selectedColor === colorOption.color
+                      selectedColor === option.color
                         ? "ring-2 ring-offset-2 ring-black-400"
                         : ""
                     }`}
                   >
-                    {selectedColor === colorOption.color && (
+                    {selectedColor === option.color && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Image
                           src="/icon/checkmark.svg"
@@ -190,13 +190,13 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="flex flex-wrap gap-2">
                 {sizes.map((size) => (
                   <Button
+                    key={size.id}
                     onClick={() => handleSizeSelect(size.name)}
                     className={`px-4 md:px-8 py-4 md:py-6 text-sm rounded-full hover:bg-black hover:text-white ${
                       selectedSize === size.name
                         ? "bg-black text-white"
                         : "bg-gray-100 text-black border border-gray-300"
                     }`}
-                    key={size.id}
                   >
                     {size.name}
                   </Button>
