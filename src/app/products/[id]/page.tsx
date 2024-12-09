@@ -15,6 +15,7 @@ import {
 import Products from "@/app/data/products.json";
 import { Button } from "@/components/ui/button";
 import ProductReviews from "@/components/Reviews";
+import { Product } from "@/components/ProductCard";
 
 type ProductPageProps = {
   params: Promise<{ id: string }>;
@@ -22,7 +23,7 @@ type ProductPageProps = {
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
