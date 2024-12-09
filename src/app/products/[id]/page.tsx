@@ -22,7 +22,7 @@ type ProductPageProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage({ params, searchParams }: ProductPageProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -83,8 +83,9 @@ export default function ProductPage({ params }: ProductPageProps) {
   };
 
   if (!product) {
-    return <div className="text-center">Loading...</div>;
+    return <div>Loading...</div>;
   }
+
   return (
     <div className="container w-full px-4 py-8 min-h-screen">
       <div className="max-w-7xl mx-auto">
