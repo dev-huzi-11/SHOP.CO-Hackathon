@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Star } from "lucide-react";
@@ -22,13 +22,24 @@ type ProductPageProps = {
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const { id } = React.use(params);
+  const [product, setProduct] = useState<any>(null);
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const product = Products.find((p) => p.id === Number(id));
-
-  if (!product) {
-    return notFound();
-  }
+  // Fetch the product data
+  useEffect(() => {
+    const getProduct = async () => {
+      const { id } = await params;
+      const foundProduct = Products.find((p) => p.id === Number(id));
+      if (!foundProduct) {
+        notFound();
+      } else {
+        setProduct(foundProduct);
+      }
+    };
+    getProduct();
+  }, [params]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -45,10 +56,6 @@ export default function ProductPage({ params }: ProductPageProps) {
       />
     ));
   };
-
-  const [selectedColor, setSelectedColor] = useState<string>("");
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
 
   const handleSizeSelect = (size: string) => setSelectedSize(size);
 
@@ -72,6 +79,10 @@ export default function ProductPage({ params }: ProductPageProps) {
   const updateQuantity = (change: number) => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + change));
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container w-full px-4 py-8 min-h-screen">
@@ -122,7 +133,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-6 px-6">
               <h1 className="text-3xl md:text-5xl font-bold">{product.title}</h1>
               <div className="flex items-center gap-1">
                 {renderStars(product.rating)}

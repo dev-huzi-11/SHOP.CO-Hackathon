@@ -133,9 +133,9 @@ const ProductReviews = () => {
           </TabsTrigger>
           <TabsTrigger
             className="bg-transparent w-full h-full text-lg"
-            value="FAQ'S"
+            value="FAQ&apos;S"
           >
-            FAQ'S
+            FAQ&apos;S
           </TabsTrigger>
         </TabsList>
 
@@ -177,7 +177,7 @@ const ProductReviews = () => {
           <p>Product detail is here.</p>
         </TabsContent>
 
-        <TabsContent value="FAQ'S">
+        <TabsContent value="FAQ&apos;S">
           <p>FAQs is here.</p>
         </TabsContent>
       </Tabs>

@@ -195,7 +195,7 @@ const Footer = () => {
               width={300}
               height={100}
               alt="Cards"
-              className="object-contain"
+              className="object-contain w-auto h-auto"
             />
           </div>
         </div>
