@@ -20,7 +20,7 @@ const Hero = () => {
             style.
           </p>
           <Link
-            href="/products"
+            href="/shop"
             className="mt-8 w-full md:w-fit text-center px-12 py-4 bg-black text-white rounded-full font-medium hover:bg-gray-100 hover:text-black border-2 border-black transition-colors text-base"
           >
             Shop Now
