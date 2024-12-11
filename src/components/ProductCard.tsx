@@ -13,7 +13,7 @@ export interface Product {
   oldPrice?: string;
   rating: number;
   reviews?: number;
-  category? : string;
+  category?: string;
   description?: string;
 }
 
@@ -64,18 +64,20 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
               {product.rating}/5
             </span>
           </div>
-          <div className="flex gap-3 mt-2 items-center">
-            <span className="text-lg">{product.newPrice}</span>
-            {product.oldPrice && (
-              <span className="text-gray-500 line-through text-base">
-                {product.oldPrice}
-              </span>
-            )}
-            {product.off && (
-              <div className="bg-[#FF33331A] text-[#FF3333] px-3.5 py-1.5 rounded-2xl">
-                <p>{product.off}</p>
-              </div>
-            )}
+          <div className="flex flex-col md:flex-row">
+            <div className="flex gap-3 mt-2 items-center">
+              <span className="text-lg">{product.newPrice}</span>
+              {product.oldPrice && (
+                <span className="text-gray-500 line-through text-base">
+                  {product.oldPrice}
+                </span>
+              )}
+              {product.off && (
+                <div className="bg-[#FF33331A] text-[#FF3333] px-3.5 py-1.5 rounded-2xl">
+                  <p>{product.off}</p>
+                </div>
+              )}
+            </div>
           </div>
         </CardContent>
       </div>

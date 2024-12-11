@@ -19,10 +19,11 @@ export function Navbar() {
 
       {/* Main Navbar */}
       <div className="border-b bg-white">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Mobile Menu Button */}
             <Button
+              variant={"ghost"}
               className="lg:hidden p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -30,13 +31,7 @@ export function Navbar() {
             </Button>
 
             {/* Logo */}
-            <Link
-              href="/"
-              className={cn(
-                "text-xl md:text-2xl font-bold"
-                // integralCF.className
-              )}
-            >
+            <Link href="/" className="text-xl md:text-2xl font-bold">
               SHOP.CO
             </Link>
 
@@ -149,4 +144,4 @@ export function Navbar() {
   );
 }
 
-export default Navbar
+export default Navbar;

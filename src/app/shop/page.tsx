@@ -53,7 +53,7 @@ const Shop = () => {
   const toggleFilter = () => setIsFilterVisible(!isFilterVisible);
 
   return (
-    <div className="w-full px-4 py-10 lg:py-20">
+    <div className="w-full px-4 py-10 lg:py-20 mx-auto">
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumb Navigation */}
         <div className="mb-6">
@@ -71,7 +71,7 @@ const Shop = () => {
         </div>
 
         {/* Main Layout */}
-        <div className="lg:flex gap-6 my-10">
+        <div className="lg:flex gap-2 lg:gap-6 my-10">
           {/* Filter Section */}
           <div
             className={`w-full lg:w-1/4 shadow-lg p-4 bg-white ${
@@ -232,7 +232,7 @@ const Shop = () => {
 
           {/* Product Section */}
           <div className="flex-1">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 mb-6">
               <div className="flex items-center gap-4">
                 <h1 className="text-5xl font-bold">Casual</h1>
                 {/* Filter Icon for Small Screens */}

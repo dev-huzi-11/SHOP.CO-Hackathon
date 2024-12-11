@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "./ui/button";
 
 interface Review {
   id: string;
@@ -116,9 +117,9 @@ const ProductReviews = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 lg:px-8">
+    <div className="max-w-7xl mx-auto px-4 py-12 my-8 lg:px-8">
       <Tabs defaultValue="Rating & Reviews" className="w-full">
-        <TabsList className="w-full flex justify-evenly h-16">
+        <TabsList className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-30 md:h-16">
           <TabsTrigger
             className="bg-transparent w-full h-full text-lg"
             value="Product Details"
@@ -140,12 +141,12 @@ const ProductReviews = () => {
         </TabsList>
 
         <TabsContent value="Rating & Reviews">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 my-8">
+          <div className="flex justify-between items-center gap-4 my-8 px-4">
             <h2 className="text-lg font-medium">All Reviews</h2>
             <div className="flex items-center gap-4">
-              <button className="px-4 py-2 bg-black text-white rounded-full hover:bg-gray-900 transition-colors">
+              <Button className="px-10 py-6 bg-black text-white rounded-full hover:bg-gray-900 transition-colors">
                 Write a Review
-              </button>
+              </Button>
             </div>
           </div>
 

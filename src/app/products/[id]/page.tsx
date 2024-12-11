@@ -93,7 +93,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="container w-full px-4 py-8 min-h-screen">
+    <div className="container w-full px-4 py-8 min-h-screen mx-auto">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <Breadcrumb>
@@ -114,8 +114,8 @@ export default function ProductPage({ params }: ProductPageProps) {
         </div>
 
         <div className="flex flex-col gap-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="flex flex-col-reverse md:flex-row items-center gap-4">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex flex-col-reverse md:flex-row items-center gap-4 mx-auto px-4">
               <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible">
                 {Array.from({ length: 3 }, (_, i) => (
                   <div
@@ -127,7 +127,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                       height={100}
                       src={product.image}
                       alt={`${product.title} Thumbnail ${i + 1}`}
-                      className="rounded-lg cursor-pointer object-cover w-full h-full"
+                      className="rounded-lg cursor-pointer w-80 md:w-full object-cover h-full"
                     />
                   </div>
                 ))}
@@ -139,7 +139,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   height={500}
                   src={product.image}
                   alt={product.title}
-                  className="w-100 h-100 rounded-lg object-cover md:w-full md:h-full"
+                  className="w-100 h-100 rounded-lg object-cover lg:w-full md:h-full"
                 />
               </div>
             </div>
