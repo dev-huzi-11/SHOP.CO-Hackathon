@@ -74,7 +74,7 @@ const Shop = () => {
         <div className="lg:flex gap-2 lg:gap-6 my-10">
           {/* Filter Section */}
           <div
-            className={`w-full lg:w-1/4 shadow-lg p-4 bg-white ${
+            className={`w-full lg:w-1/4 shadow-lg p-4 bg-white max-h-[80rem] ${
               isFilterVisible ? "block" : "hidden"
             } lg:block`}
           >

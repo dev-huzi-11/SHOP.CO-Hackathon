@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const Hero = () => {
   return (
     <div className="w-full bg-[#F2F0F1] min-h-screen">
-      <div className="flex flex-col lg:flex-row items-center max-w-[1400px] mx-auto">
+      <div className="flex flex-col lg:flex-row items-center max-w-screen-2xl mx-auto">
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 lg:px-20 py-12 lg:py-20">
           <h1
             className={cn(
