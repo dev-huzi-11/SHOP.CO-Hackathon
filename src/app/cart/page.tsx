@@ -5,13 +5,14 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const CartPage = () => {
   const { items, updateQuantity, removeFromCart } = useCart();
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
 
   const calculateSubtotal = () =>
@@ -19,19 +20,25 @@ const CartPage = () => {
 
   const calculateTotalPrice = () => {
     const subtotal = calculateSubtotal();
-    const delivery = 150; 
-    return subtotal + delivery; 
+    const delivery = 150;
+    return subtotal + delivery;
   };
 
   if (!isClient) {
-    return null; 
+    return null;
   }
 
   if (items.length === 0) {
     return (
-      <div className="w-full px-4 py-20">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-10">Your Cart is Empty</h1>
+      <div className="w-full px-4 py-20 min-h-[50vh] flex">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 items-center justify-center ">
+          <h1 className="text-4xl font-bold ">Your Cart is Empty</h1>
+          <Link
+            href={"/shop"}
+            className="bg-black text-white font-semibold text-xl px-4 py-2 rounded-lg"
+          >
+            Go to Shop
+          </Link>
         </div>
       </div>
     );
@@ -58,28 +65,45 @@ const CartPage = () => {
                     className="rounded-lg"
                   />
                   <div>
-                    <h2 className="text-lg font-semibold max-w-[13rem]">{item.name}</h2>
+                    <h2 className="md:text-lg text-sm font-semibold max-w-[13rem]">
+                      {item.name}
+                    </h2>
                     <p className="text-gray-500">${item.price}</p>
+                    <div className="flex gap-2 mt-1">
+
+                    <div
+                        className="w-5 h-5 rounded-full"
+                        style={{
+                          backgroundColor: item.color, 
+                        }}
+                      />
+                    <p className="text-gray-500">{item.size}</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <Button
-                    variant="outline"
-                    onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                  >
-                    -
-                  </Button>
-                  <span>{item.quantity}</span>
-                  <Button
-                    variant="outline"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  >
-                    +
+                <div className="flex items-center gap-4 flex-col md:flex-row">
+                  <div className="gap-4 flex items-center">
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        updateQuantity(item.id, Math.max(1, item.quantity - 1))
+                      }
+                    >
+                      -
+                    </Button>
+                    <span>{item.quantity}</span>
+                    <Button
+                      variant="outline"
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                  <Button onClick={() => removeFromCart(item.id)}>
+                    Remove
                   </Button>
                 </div>
-
-                <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
               </div>
             ))}
           </div>

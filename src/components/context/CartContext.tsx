@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 
 interface CartItem {
   id: string;
@@ -21,7 +28,9 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
@@ -32,16 +41,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   useEffect(() => {
-
-    if (items.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(items));
-    }
+    localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = useCallback((item: CartItem) => {
     setItems((prev) => {
       const existingItem = prev.find(
-        (i) => i.id === item.id && i.color === item.color && i.size === item.size
+        (i) =>
+          i.id === item.id && i.color === item.color && i.size === item.size
       );
       if (existingItem) {
         return prev.map((i) =>
@@ -52,23 +59,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, item];
     });
-  };
+  }, []);
 
-  const updateQuantity = (id: string, quantity: number) => {
+  const updateQuantity = useCallback((id: string, quantity: number) => {
     setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+      )
     );
-  };
+  }, []);
 
-  const removeFromCart = (id: string) => {
+  const removeFromCart = useCallback((id: string) => {
     setItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  }, []);
 
-  return (
-    <CartContext.Provider value={{ items, addToCart, updateQuantity, removeFromCart }}>
-      {children}
-    </CartContext.Provider>
+  const value = useMemo(
+    () => ({ items, addToCart, updateQuantity, removeFromCart }),
+    [items, addToCart, updateQuantity, removeFromCart]
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
 export const useCart = (): CartContextType => {

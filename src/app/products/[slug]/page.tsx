@@ -1,15 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import ProductReviews from "@/components/Reviews";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,9 +16,10 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export default function ProductPage({ params }: Props) {
+const ProductPage = ({ params }: Props) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+
   const [slug, setSlug] = useState<string | null>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,7 +33,6 @@ export default function ProductPage({ params }: Props) {
       const resolvedParams = await params;
       setSlug(resolvedParams.slug);
     };
-
     resolveParams();
   }, [params]);
 
@@ -62,13 +55,12 @@ export default function ProductPage({ params }: Props) {
           colors,
           sizes
         }`;
-        const fetchedProduct = await client.fetch(query, { slug });
-
-        if (!fetchedProduct || fetchedProduct.length === 0) {
+        const result = await client.fetch(query, { slug });
+        if (!result || result.length === 0) {
           setError("Product not found.");
           setProduct(null);
         } else {
-          setProduct(fetchedProduct[0]);
+          setProduct(result[0]);
           setError(null);
         }
       } catch (err: any) {
@@ -77,47 +69,42 @@ export default function ProductPage({ params }: Props) {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [slug]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     if (!selectedColor || !selectedSize) {
       alert("Please select color and size");
       return;
     }
-
-    addToCart({
-      id: product?._id || "",
-      name: product?.name || "Product",
-      image: imageUrl || "",
-      color: selectedColor,
-      size: selectedSize,
-      price: product?.price || 0,
-      quantity: quantity,
-    });
-
-    toast({
-      title: "Product added to cart",
-      description: `${product?.name} has been added to your cart.`,
-    });
-  };
+    if (product) {
+      addToCart({
+        id: product._id,
+        name: product?.name || "",
+        image: imageUrl || "",
+        color: selectedColor,
+        size: selectedSize,
+        price: product?.price || 0,
+        quantity,
+      });
+      toast({
+        title: "Product added to cart",
+        description: `${product.name} has been added to your cart.`,
+      });
+    }
+  }, [product, selectedColor, selectedSize, quantity, addToCart, toast]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Skeleton className="w-[40rem] h-[30rem]" />
-      </div>
-    );
+    return <div className="min-h-screen w-full flex justify-center items-center">
+    <Skeleton className="w-[35rem] h-[40rem]" />;
+    </div>
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-center">
+      <div className="text-center py-8">
         <p className="text-lg text-red-500">{error}</p>
-        <Button onClick={() => window.location.reload()} className="mt-4">
-          Retry
-        </Button>
+        <Button onClick={() => window.location.reload()}>Retry</Button>
       </div>
     );
   }
@@ -278,3 +265,5 @@ export default function ProductPage({ params }: Props) {
     </div>
   );
 }
+
+export default ProductPage
